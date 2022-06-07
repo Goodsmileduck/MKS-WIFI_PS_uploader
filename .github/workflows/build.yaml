@@ -68,12 +68,10 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Upload assets
+      - name: Release
+        uses: fnkr/github-action-ghr@v1
         if: ${{ github.event_name == 'push' }}
-        uses: Roang-zero1/github-upload-release-artifacts-action@master
-        with:
-          created_tag: ${{steps.tag_version.outputs.new_tag }}
-          args:
-          - dist/MKS_WIFI_PS_upload.exe
         env:
+          GHR_COMPRESS: zip
+          GHR_PATH: dist/MKS_WIFI_PS_upload.exe
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
