@@ -8,9 +8,7 @@ on:
 
 jobs:
   build:
-
     runs-on: windows-latest
-
     steps:
       - uses: actions/checkout@v2
 
@@ -70,11 +68,12 @@ jobs:
           draft: false
           prerelease: false
 
-    - name: Create GitHub release
-      uses: Roang-zero1/github-upload-release-artifacts-action@master
-      with:
-        created_tag: ${{steps.tag_version.outputs.new_tag }}
-        args:
-        - dist/MKS_WIFI_PS_upload.exe
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload assets
+        if: ${{ github.event_name == 'push' }}
+        uses: Roang-zero1/github-upload-release-artifacts-action@master
+        with:
+          created_tag: ${{steps.tag_version.outputs.new_tag }}
+          args:
+          - dist/MKS_WIFI_PS_upload.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
