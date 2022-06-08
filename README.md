@@ -8,7 +8,7 @@ As of now (2021-01-17) the tool works fine. However, I curently have no printers
 ### Versions
 It is written on Python and available in 2 versions:
 + [Python script](src/MKS_WIFI_PS_upload.pyw) (requires Python 3 with **requests** package) 
-+ Windows x64 executable (frozen with pyinstaller, more convinient, no requirements to run) could be found in [releases](releases/)
++ Windows x64 executable (frozen with pyinstaller, more convinient, no requirements to run) could be found in [releases](/releases/latest)
 
 I might think about releasing additional executables (like Win32 or linux) if there will be real demand for it. Until then you might always use Python script version (or pack the executable yourself using i.e. pyinstaller)
 
