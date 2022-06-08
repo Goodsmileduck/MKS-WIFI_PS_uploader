@@ -55,23 +55,13 @@ jobs:
           ${{ steps.changelog.outputs.changelog }}
           EOF
 
-      - name: Create Release
+      - name: Release
+        uses: softprops/action-gh-release@v1
         if: ${{ github.event_name == 'push' }}
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
         with:
+          name: ${{steps.tag_version.outputs.new_tag }}
           tag_name: ${{steps.tag_version.outputs.new_tag }}
-          release_name: ${{steps.tag_version.outputs.new_tag }}
           body: ${{ steps.changelog.outputs.changelog }}
           draft: false
           prerelease: false
-
-      - name: Release
-        uses: fnkr/github-action-ghr@v1
-        if: ${{ github.event_name == 'push' }}
-        env:
-          GHR_COMPRESS: zip
-          GHR_PATH: dist/MKS_WIFI_PS_upload.exe
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          files: dist/MKS_WIFI_PS_upload.exe
