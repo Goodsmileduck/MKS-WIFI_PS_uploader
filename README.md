@@ -7,8 +7,8 @@ As of now (2021-01-17) the tool works fine. However, I curently have no printers
 
 ### Versions
 It is written on Python and available in 2 versions:
-+ Python script (requires Python 3 with **requests** package)
-+ Windows x64 executable (frozen with pyinstaller, more convinient, no requirements to run)
++ [Python script](src/MKS_WIFI_PS_upload.pyw) (requires Python 3 with **requests** package) 
++ Windows x64 executable (frozen with pyinstaller, more convinient, no requirements to run) could be found in [releases](releases/)
 
 I might think about releasing additional executables (like Win32 or linux) if there will be real demand for it. Until then you might always use Python script version (or pack the executable yourself using i.e. pyinstaller)
 
@@ -19,22 +19,22 @@ Download the script or executable to the location of your preference (not necess
 To use Uploader select your Print profile and go to the Output options. Here insert following command into the Post-processing script
 ##### To use executable (see screenshot)
 ```
-"\path\to\the\executable\MKS_WIFI_PS_upload.exe" ip_address mode;
+"\path\to\the\executable\MKS_WIFI_PS_upload.exe" <ip_address> <mode>;
 ```
 
 ##### To use python script
 ```
-"\path\to\the\python\installation\pythonw.exe" "\path\to\the\script\MKS_WIFI_PS_upload.pyw" ip_address mode;
+"\path\to\the\python\installation\pythonw.exe" "\path\to\the\script\MKS_WIFI_PS_upload.pyw" <ip_address> <mode>;
 ```
 
 ##### Simplify3D
 It is possible to use the script with Simplify3D slicer (however, it does not work if path to the g-code file contains spaces). Add following command to the "Additional Terminal Commands for Post Processing" section in the "Scripts" tab (quotes and brackets are necessary!)
 ```
-"\path\to\the\executable\MKS_WIFI_PS_upload.exe" ip_address mode [output_filepath]
+"\path\to\the\executable\MKS_WIFI_PS_upload.exe" <ip_address> <mode> [output_filepath]
 ```
 For more information see [Simplify3D forums](https://forum.simplify3d.com/viewtopic.php?f=8&t=1959)
 
-##### ip_address - IP adress of the printer in your local network
+##### <ip_address> - IP adress of the printer in your local network
 ##### mode - one of the following options:
 + **ask** - when a file is uploaded the script will ask if you want to immediately start printing it
 + **always** - when a file is uploaded the script will immediately start printing it without asking
@@ -49,5 +49,5 @@ If run without any options (i.e. double click on the executable) it will first p
 
 Alternatively you can run it from a command line providing path to you gcode file as the third option:
 ```
-MKS_WIFI_PS_upload.exe ip_addr mode "\path\to\the\file\for\upload.gcode"
+MKS_WIFI_PS_upload.exe ip_addr <mode> "\path\to\the\file\for\upload.gcode"
 ```
