@@ -64,4 +64,4 @@ jobs:
           body: ${{ steps.changelog.outputs.changelog }}
           draft: false
           prerelease: false
-          files: dist/MKS_WIFI_PS_upload.exe
+          files: src/dist/MKS_WIFI_PS_upload.exe
