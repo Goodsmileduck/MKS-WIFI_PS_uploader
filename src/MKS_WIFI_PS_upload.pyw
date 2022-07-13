@@ -166,8 +166,10 @@ def startJob(ip_addr, sd_name):
     except Exception as e:
         print(e)
         raise(e)
+    print(socket.recv(1000))
     socket.send(("M23 %s" %sd_name + "\r\n").encode())
     socket.send(("M24" + "\r\n").encode())
+    time.sleep(1)
     try:
         socket.shutdown(pysock.SHUT_RDWR)
         socket.close()
@@ -180,9 +182,9 @@ def startJob(ip_addr, sd_name):
 
 def startTransfer():
     global ip_addr, localfile, sd_name
-    with open(localfile, 'r', encoding="utf-8") as f:
+    with open(localfile, 'rb') as f:
         gcode = f.read()
-    body_buffer = BufferReader(gcode.encode(), upload_progress)
+    body_buffer = BufferReader(gcode, upload_progress)
     r = requests.post("http://{:s}/upload?X-Filename={:s}".format(ip_addr, sd_name), data=body_buffer, headers={'Content-Type': 'application/octet-stream', 'Connection' : 'keep-alive'})
     top.lbl_UploadStatus['text'] = "Done!"
     root.update()
@@ -193,7 +195,7 @@ def startTransfer():
     else:
         printUploaded = msbx.askyesno("Start print job?", "Print uploaded file?")
         if printUploaded: startJob(ip_addr, sd_name)
-    time.sleep(3)
+    time.sleep(1)
     root.destroy()
     try: exit()
     except SystemExit as e: pass
@@ -211,7 +213,9 @@ except IndexError:
     localfile = fldg.askopenfilename()
     ip_addr = smdg.askstring("Printer IP", "Please enter IP adress of the printer")
 
-sd_name = os.path.split(localfile)[1]
+sd_name = os.path.split(str(os.getenv('SLIC3R_PP_OUTPUT_NAME')))[1]
+if sd_name == 'None':
+    sd_name = os.path.split(localfile)[1]
 
 root.after(10, startTransfer)
 root.mainloop()
