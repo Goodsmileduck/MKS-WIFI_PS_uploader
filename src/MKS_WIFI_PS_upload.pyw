@@ -1,10 +1,13 @@
 #! /usr/bin/env python
 #  -*- coding: utf-8 -*-
 # author: Victor Shapovalov (@ArtificalSUN), 2020
+# modified: AndyBig, 2022
 # version: 0.2.2
 
 import sys, os, requests, io, time
 import socket as pysock
+
+version = "0.3"
 
 try:
     import Tkinter as tk
@@ -71,7 +74,7 @@ class Main:
         top.minsize(400, 60)
         top.maxsize(400, 60)
         top.resizable(0, 0)
-        top.title("MKS WIFI Uploader for Prusa Slicer")
+        top.title("MKS WIFI Uploader v%s" %version)
         top.configure(background="#d9d9d9")
 
         # self.btn_Print = ttk.Button(top)
